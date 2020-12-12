@@ -8,4 +8,4 @@ cd %ROOT_DIR%
 
 rem clean
 rmdir /S /Q build
-rmdir /S /Q dist
+rmdir /S /Q dist\trace-history
