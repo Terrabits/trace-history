@@ -1,0 +1,12 @@
+altgraph==0.17
+macholib==1.14
+numpy==1.19.4
+pathlib==1.0.1
+pyinstaller==4.1
+pyinstaller-hooks-contrib==2020.10
+PyVISA==1.11.3
+rohdeschwarz==1.7.0.dev1
+ruamel.yaml==0.16.12
+ruamel.yaml.clib==0.2.2
+si-prefix==1.2.2
+typing-extensions==3.7.4.3

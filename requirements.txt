@@ -1,0 +1,3 @@
+pyinstaller  ~= 4.1
+rohdeschwarz ~= 1.7.0.dev1
+si_prefix    ~= 1.2
