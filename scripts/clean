@@ -13,4 +13,4 @@ cd "$ROOT_DIR"
 
 # clean
 rm -rf build
-rm -rf dist
+rm -rf dist/trace-history
