@@ -1,5 +1,5 @@
 @echo off
-SET ROOT_DIR=%~dp0..
+SET ROOT_DIR=%~dp0
 
 
 setlocal
