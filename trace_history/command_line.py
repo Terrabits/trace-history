@@ -1,6 +1,8 @@
+from   .version import version
 import argparse
 import os
 from   pathlib import Path
+import sys
 
 
 # timeout constants
@@ -14,7 +16,8 @@ def parse_args():
 
     # define command line interface (cli)
     parser = argparse.ArgumentParser()
-    parser.add_argument('--quiet', action='store_true')
+    parser.add_argument('--quiet',   action='store_true')
+    parser.add_argument('--version', action='version', version=version)
     parser.add_argument('--ip-address',           default='localhost')
     parser.add_argument('--log',                  default='vna.log')
     parser.add_argument('--timeout-ms', type=int, default=TWO_MINS_MS)
@@ -25,7 +28,7 @@ def parse_args():
     # parse cli
     args = parser.parse_args()
 
-    # validate and resolve data path
+    # data path?
     args.data_path = Path(args.data_path).resolve()
     if not args.data_path.exists():
         raise Exception(f'{str(args.data_path)} does not exist')
