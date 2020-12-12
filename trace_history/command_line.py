@@ -28,6 +28,6 @@ def parse_args():
     # validate and resolve data path
     args.data_path = Path(args.data_path).resolve()
     if not args.data_path.exists():
-        raise Exception(f'{str(data_path)} does not exist')
+        raise Exception(f'{str(args.data_path)} does not exist')
 
     return args
