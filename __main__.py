@@ -15,7 +15,7 @@ args = parse_args()
 # init connection
 vna = Vna()
 vna.open_tcp(args.ip_address)
-vna.open_log(args.log)
+vna.open_log(args.log_file)
 
 vna.timeout_ms = args.timeout_ms
 
