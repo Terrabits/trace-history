@@ -5,22 +5,23 @@ This is a python Command Line Interface (CLI) for performing Rohde & Schwarz (R&
 ## Command Line Interface
 
 ```comment
-usage: trace-history [-h] [--quiet] [--ip-address IP_ADDRESS] [--log LOG]
-                     [--timeout-ms TIMEOUT_MS] [--set-file SET_FILE]
-                     [--data-path DATA_PATH]
-                     sweep_count
+usage: trace-history [-h] [--quiet] [--version] [--ip-address IP_ADDRESS]
+         [--log-file LOG_FILE] [--timeout-ms TIMEOUT_MS] [--set-file SET_FILE]
+         [--data-path DATA_PATH]
+         sweep_count
 
 positional arguments:
   sweep_count
 
 optional arguments:
-  -h, --help            show this help message and exit
-  --quiet
-  --ip-address IP_ADDRESS
-  --log LOG
-  --timeout-ms TIMEOUT_MS
+  -h, --help               show this help message and exit
+  --quiet                  do not print to stdout
+  --version                show program's version number and exit
+  --ip-address IP_ADDRESS  default: localhost
+  --log-file LOG_FILE      default: vna.log
+  --timeout-ms TIMEOUT_MS  default: 120000
   --set-file SET_FILE
-  --data-path DATA_PATH
+  --data-path DATA_PATH    default: current working directory
 ```
 
 ## Requirements
