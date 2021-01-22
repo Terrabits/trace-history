@@ -32,8 +32,4 @@ This project was validated with python version `3.8.5` `x64` on `macOS` Catalina
 
 There is a start script and several build scripts in the `scripts` folder.
 
-If working on Windows, these scripts can either be used as examples or run with `Git Bash` or `MSYS2`.
-
-## Procedure for Set Files
-
-For instructions on how to generate set files and calibrate, see [doc/procedure-for-set-files/procedure-for-set-files.md](doc/procedure-for-set-files/procedure-for-set-files.md)
+Most scripts are provided for both Bash (macOS, Linux) and Windows Batch file.
