@@ -38,10 +38,6 @@ The preset settings are displayed below:
 
 ## Estimated Sweep Time Statistics
 
-Total time normalized by `sweep_count` is sweep time.
-
-Statistics for sweep time are listed in the table below.
-
 | Sweep Count | Runs | Min (ms) | Mean (ms) | Max (ms) |
 | ----------- | ---- | -------- | --------- | -------- |
 | 2           | 100  | `35.4`   | `35.6`    | `39.6`   |
@@ -50,4 +46,4 @@ Statistics for sweep time are listed in the table below.
 | 1000        | 10   | `34.6`   | `34.6`    | `34.6`   |
 | 2000        | 10   | `34.6`   | `34.6`    | `34.6`   |
 
-As you can see, the transient time per sweep (which appears to peak at 5-6 seconds in extreme conditions) dies out considerably around `sweep_count=200`.
+As you can see, the transient time per sweep (which appears to peak at 5-6 seconds in extreme conditions) is almost gone at `sweep_count=200`.
