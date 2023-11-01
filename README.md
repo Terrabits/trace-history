@@ -19,9 +19,9 @@ cd path/to/trace-history
 pip install .
 ```
 
-## Command Line Interface
+## CLI
 
-To see a list of possible settings, access the help menu from the command line as follows:
+The command line interface (CLI) help menu can be printed with the `--help` flag:
 
 `trace-history --help`
 
