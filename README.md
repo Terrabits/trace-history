@@ -1,8 +1,31 @@
 # Trace History
 
-This is a python Command Line Interface (CLI) for performing Rohde & Schwarz (R&S) Vector Network Analyzer (VNA) measurements with trace history.
+Trace History is a command line utility for using the Rohde & Schwarz (R&S) Vector Network Analyzer (VNA) Trace History feature.
+
+As of `1 Nov 2023`, the Trace History feature is only available via SCPI commands. This utility provides a simple interface that can be used on any platform on the command line.
+
+## Requirements
+
+-   Python       ~= 3.4
+-   rohdeschwarz ~=1.9.2.dev1
+-   si-prefix    ~=1.2
+
+## Install
+
+To install the `trace-history` command line utility, first clone the project repo then run pip install as follows:
+
+```shell
+cd path/to/trace-history
+pip install .
+```
 
 ## Command Line Interface
+
+To see a list of possible settings, access the help menu from the command line as follows:
+
+`trace-history --help`
+
+You should see the following output:
 
 ```comment
 usage: trace-history [-h] [--quiet] [--version] [--ip-address IP_ADDRESS]
@@ -24,12 +47,6 @@ optional arguments:
   --data-path DATA_PATH    default: current working directory
 ```
 
-## Requirements
+## Example
 
-This project was validated with python version `3.8.5` `x64` on `macOS` Catalina version `10.15.7`.
-
-## Scripts
-
-There is a start script and several build scripts in the `scripts` folder.
-
-Most scripts are provided for both Bash (macOS, Linux) and Windows Batch file.
+See [example/README.md](./example/README.md) for an example use of `trace-history`.
