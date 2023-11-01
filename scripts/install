@@ -10,4 +10,4 @@ cd "$ROOT_DIR"
 
 
 # install
-pip install -r requirements-lock.txt
+pip install --editable .[dev]

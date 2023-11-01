@@ -7,4 +7,4 @@ cd %ROOT_DIR%
 
 
 rem install
-pip install -r requirements-lock.txt
+pip install --editable .[dev]
