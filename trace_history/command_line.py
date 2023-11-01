@@ -1,4 +1,4 @@
-from   .version import version
+from   .version import VERSION
 import argparse
 import os
 from   pathlib import Path
@@ -22,7 +22,7 @@ def parse_args():
     # define command line interface (cli)
     parser = argparse.ArgumentParser()
     parser.add_argument('--quiet',   action='store_true', help='do not print to stdout')
-    parser.add_argument('--version', action='version', version=version)
+    parser.add_argument('--version', action='version', version=VERSION)
     parser.add_argument('--ip-address',           default='localhost', help=default_str)
     parser.add_argument('--log-file',             default='vna.log',   help=default_str)
     parser.add_argument('--timeout-ms', type=int, default=TWO_MINS_MS, help=default_int)
