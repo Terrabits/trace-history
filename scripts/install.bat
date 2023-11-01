@@ -5,4 +5,4 @@ cd /d "%ROOT_DIR%"
 
 
 rem install
-pip install --editable .[dev]
+pip install --editable .[dev] %*
