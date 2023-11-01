@@ -5,4 +5,4 @@ cd /d "%ROOT_DIR%"
 
 
 rem build
-pyinstaller trace-history.spec
+pyinstaller trace-history.spec %*
