@@ -1,6 +1,6 @@
 # Trace History Example
 
-This example uses the Rohde & Schwarz `trace-history` command line utility to perform 100 Vector Network Analyzer (VNA) measurements and save the traces' history for each set file.
+This example uses the Rohde & Schwarz `trace-history` command line utility to save several hundred sweeps of Trace History data for each Vector Network Analyzer (VNA) set file (or measurement setup) in a list.
 
 ## Requirements
 
