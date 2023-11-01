@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from   .command_line import parse_args
-from   .default_time import default_time_s
-from   .timestamp    import timestamp
+from   .command_line                import parse_args
+from   .default_time                import default_time_s
+from   .timestamp                   import timestamp
 import csv
 import os
+from   pathlib                      import Path
 from   rohdeschwarz.instruments.vna import Vna
 from   si_prefix                    import si_format
 import sys
@@ -15,9 +16,17 @@ def main():
 
     # init connection
     vna = Vna()
-    vna.open_tcp(args.ip_address)
+    try:
+        vna.open_tcp(args.ip_address)
+    except (TimeoutError, ConnectionError):
+        message = f'error: could not connect to vna at "{args.ip_address}"'
+        print(message, file=sys.stderr)
+        sys.exit(1)
+
+    # open scpi log
     vna.open_log(args.log_file)
 
+    # set timeout
     vna.timeout_ms = args.timeout_ms
 
     # clear previous scpi errors
@@ -32,8 +41,8 @@ def main():
     vna.active_set = args.set_file
 
     # make data directory
-    data_path = args.data_path / f'{now}_{args.set_file}'
-    data_path.mkdir()
+    data_path = Path(args.data_path) / f'{now}_{args.set_file}'
+    data_path.mkdir(parents=True, exist_ok=True)
 
     # turn screen off (speed improvement)
     vna.settings.display = False
