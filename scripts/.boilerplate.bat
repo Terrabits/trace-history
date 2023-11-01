@@ -1,6 +1,7 @@
 @echo off
-SET ROOT_DIR=%~dp0..
-
-
 setlocal
-cd %ROOT_DIR%
+SET "ROOT_DIR=%~dp0.."
+cd /d "%ROOT_DIR%"
+
+
+REM TODO

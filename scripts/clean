@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
-
-
+set -o errexit   # exit on error
+set -o pipefail  # exit on error in pipes
+set -o nounset   # exit on unset variable
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
-
-
-# exit on error
-set -e
-
-
 cd "$ROOT_DIR"
 
 
