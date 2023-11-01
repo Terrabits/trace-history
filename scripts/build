@@ -7,4 +7,4 @@ cd "$ROOT_DIR"
 
 
 # build
-pyinstaller trace-history.spec
+exec pyinstaller trace-history.spec

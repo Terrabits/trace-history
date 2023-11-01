@@ -8,4 +8,4 @@ cd "$ROOT_DIR"
 
 # zip
 cd dist
-zip -r trace-history.zip trace-history trace-history.sh
+exec zip -r trace-history.zip trace-history trace-history.sh
