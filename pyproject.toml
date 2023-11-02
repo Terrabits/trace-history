@@ -34,7 +34,10 @@ dynamic = [
 
 
 [project.optional-dependencies]
-dev = ["pyinstaller >=6.1"]
+dev = [
+  "pyinstaller >=6.1",
+  "ddt >=1.6, <2"
+]
 
 
 [project.scripts]
