@@ -21,7 +21,6 @@ def parse_args():
     parser.add_argument('--quiet',   action='store_true', help='do not print to stdout')
     parser.add_argument('--version', action='version', version=VERSION)
     parser.add_argument('--ip-address',           default='localhost', help=default_str)
-    parser.add_argument('--log-file',             default='vna.log',   help=default_str)
     parser.add_argument('--timeout-ms', type=int, default=TWO_MINS_MS, help=default_int)
     parser.add_argument('--set-file')
     parser.add_argument('--data-path', default='.', help='default: current working directory')
