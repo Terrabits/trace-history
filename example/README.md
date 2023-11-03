@@ -20,8 +20,8 @@ You should see the following:
 
 ```comment
 usage: trace-history [-h] [--quiet] [--version] [--ip-address IP_ADDRESS]
-                     [--log-file LOG_FILE] [--timeout-ms TIMEOUT_MS]
-                     [--set-file SET_FILE] [--data-path DATA_PATH]
+                     [--timeout-ms TIMEOUT_MS] [--set-file SET_FILE]
+                     [--data-path DATA_PATH]
                      sweep_count
 
 positional arguments:
@@ -33,7 +33,6 @@ options:
   --version             show program's version number and exit
   --ip-address IP_ADDRESS
                         default: localhost
-  --log-file LOG_FILE   default: vna.log
   --timeout-ms TIMEOUT_MS
                         default: 120000
   --set-file SET_FILE
