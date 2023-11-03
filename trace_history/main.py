@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from   .command_line                import parse_args
+from   .measure_and_save            import measure_and_save
 import csv
 from   pathlib                      import Path
 from   rohdeschwarz.instruments.vna import Vna
@@ -23,7 +24,7 @@ def main():
 
 
     # measure, save, keep timing info
-    total_sweep_time_s = measure_and_save_trace_history(
+    total_sweep_time_s = measure_and_save(
         vna,
         args.sweep_count,
         args.set_file,

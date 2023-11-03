@@ -3,7 +3,7 @@ from .mock.vna     import trace_history_files
 from ddt           import data, ddt
 from pathlib       import Path
 from rohdeschwarz.test.mock.instruments.vna import Vna
-from trace_history import measure_and_save_trace_history
+from trace_history import measure_and_save
 from unittest      import TestCase
 
 
@@ -43,7 +43,7 @@ class TestTraceHistory(TestCase):
 
 
         # meausure and save trace history
-        total_sweep_time_s = measure_and_save_trace_history(
+        total_sweep_time_s = measure_and_save(
             vna,
             sweep_count,
             set_file,

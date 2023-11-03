@@ -6,7 +6,7 @@ import csv
 from   pathlib import Path
 
 
-def measure_and_save_trace_history(vna, sweep_count, set_file=None, timeout_ms=None, data_path='.'):
+def measure_and_save(vna, sweep_count, set_file=None, timeout_ms=None, data_path='.'):
     # get timestamp
     now = timestamp()
 
