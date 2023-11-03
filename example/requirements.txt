@@ -1,1 +1,1 @@
-trace_history~=1.4
+trace_history~=1.5

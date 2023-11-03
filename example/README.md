@@ -5,7 +5,7 @@ This example uses the Rohde & Schwarz `trace-history` command line utility to sa
 ## Requirements
 
 -   Python        ~= 3.4
--   trace_history ~= 1.4
+-   trace_history ~= 1.5
 -   Rohde & Schwarz VNA
 
 ## Install trace-history
