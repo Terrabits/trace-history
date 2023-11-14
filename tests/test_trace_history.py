@@ -72,9 +72,11 @@ class TestTraceHistory(TestCase):
         for file in (*trace_history_files, *open_files):
             self.assertTrue(file.startswith(str(data_path)))
 
-        # test for timing info file
-        self.assertEqual(len(open_files), 1)
+        # test for csv files
+        self.assertEqual(len(open_files), 3)
         self.assertTrue(open_files[0].endswith('timing_info.csv'))
+        self.assertTrue(open_files[1].endswith('settings.csv'))
+        self.assertTrue(open_files[2].endswith('frequencies_Hz.csv'))
 
         # test trace history data
         traces = vna.traces

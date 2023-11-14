@@ -6,6 +6,14 @@ import csv
 from   pathlib import Path
 
 
+# constants
+SETTINGS_HEADER = [
+  'if_bandwidth_Hz',
+  'power_dBm',
+  'points',
+]
+
+
 def measure_and_save(vna, sweep_count, set_file=None, timeout_ms=None, data_path='.'):
     # get timestamp
     now = timestamp()
@@ -73,12 +81,77 @@ def measure_and_save(vna, sweep_count, set_file=None, timeout_ms=None, data_path
         csvwriter.writerow([sweep_count,   total_time_s,   time_per_sweep_s])
 
 
-    # retrieve trace history data
-    for name in vna.traces:
+    # save settings for single channel?
+    is_single_channel = len(vna.channels) == 1
+    if is_single_channel:
+        index = vna.channels[0]
+        ch = vna.channel(index)
+
+        # write settings
+        settings_file = save_path / 'settings.csv'
+        with settings_file.open('w') as f:
+            csvwriter = csv.writer(f)
+            csvwriter.writerow(SETTINGS_HEADER)
+            csvwriter.writerow([
+                ch.if_bandwidth_Hz,
+                ch.power_dBm,
+                ch.points,
+            ])
+
+
+    # save settings for multiple channels?
+    else:
+        for index in vna.channels:
+            ch = vna.channel(index)
+
+            # write settings
+            settings_file = f'{ch.name}_settings.csv'
+            with settings_file.open('w') as f:
+                csvwriter = csv.writer(f)
+                csvwriter.writerow(SETTINGS_HEADER)
+                csvwriter.writerow([
+                    ch.if_bandwidth_Hz,
+                    ch.power_dBm,
+                    ch.points,
+                ])
+
+
+    # save frequency for single channel?
+    if is_single_channel:
+        index = vna.channels[0]
+        ch    = vna.channel(index)
 
         # save
-        filename = str(save_path / f'{name}.csv')
-        vna.trace(name).save_complex_history_locally(filename)
+        freq_file = save_path / 'frequencies_Hz.csv'
+        with freq_file.open('w') as f:
+            csvwriter = csv.writer(f)
+            csvwriter.writerow(ch.frequencies_Hz)
+
+
+    # save frequency for multiple channels?
+    else:
+        for index in vna.channels:
+            ch = vna.channel(index)
+
+            # save
+            freq_file = save_path / f'{ch.name}_frequencies_Hz.csv'
+            with freq_file.open('w') as f:
+                csvwriter = csv.writer(f)
+                csvwriter.writerow(ch.frequencies_Hz)
+
+
+    # save trace history
+    for name in vna.traces:
+        trace = vna.trace(name)
+        index = trace.channel
+        ch    = vna.channel(index)
+
+        # get filename
+        filename   = f'{trace.name}.csv' if is_single_channel else f'{ch.name}_{trace.name}'
+        trace_file = save_path / filename
+
+        # save
+        trace.save_complex_history_locally(str(trace_file))
 
         # log errors
         vna.errors
