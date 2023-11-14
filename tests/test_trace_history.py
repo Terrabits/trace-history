@@ -1,5 +1,9 @@
+# monkeypatches
+from .mock         import numpy
 from .mock.pathlib import directories, open_files
-from .mock.vna     import trace_history_files
+
+
+# imports
 from ddt           import data, ddt
 from pathlib       import Path
 from rohdeschwarz.test.mock.instruments.vna import Vna
@@ -11,6 +15,12 @@ from unittest      import TestCase
 root_path = Path(__file__).parent.parent.resolve()
 data_path = root_path / 'temp'
 
+
+# TODO: remove
+import numpy
+print(numpy.ndarray)
+
+# tests
 
 @ddt
 class TestTraceHistory(TestCase):
@@ -33,7 +43,6 @@ class TestTraceHistory(TestCase):
 
         # clear files, directories
         open_files.clear()
-        trace_history_files.clear()
         directories.clear()
 
         # init vna
@@ -58,28 +67,28 @@ class TestTraceHistory(TestCase):
             ch = vna.channel(index)
             self.assertEqual(ch.sweep_count, sweep_count)
 
+
         # test set file
         self.assertEqual(vna.active_set, set_file or 'Set1')
 
+
         # test sweeps complete
         self.assertTrue(vna.is_operation_complete())
+
 
         # test mkdir
         self.assertEqual(len(directories), 1)
         self.assertTrue(directories[0].endswith(set_file or 'Set1'))
 
+
         # test file locations
-        for file in (*trace_history_files, *open_files):
+        for file in open_files:
             self.assertTrue(file.startswith(str(data_path)))
 
+
         # test for csv files
-        self.assertEqual(len(open_files), 3)
+        self.assertEqual(len(open_files), 4)
         self.assertTrue(open_files[0].endswith('timing_info.csv'))
         self.assertTrue(open_files[1].endswith('settings.csv'))
         self.assertTrue(open_files[2].endswith('frequencies_Hz.csv'))
-
-        # test trace history data
-        traces = vna.traces
-        self.assertEqual(len(traces), len(trace_history_files))
-        for trace, file in zip(traces, trace_history_files):
-            self.assertTrue(file.endswith(f'{trace}.csv'))
+        self.assertTrue(open_files[3].endswith('Trc1.csv'))
