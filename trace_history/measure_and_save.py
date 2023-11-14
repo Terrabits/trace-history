@@ -1,29 +1,28 @@
 #!/usr/bin/env python
-from   .command_line import parse_args
 from   .default_time import default_time_s
+from   .save         import save_frequency, save_settings
+from   .save         import save_timing_info, save_traces
 from   .timestamp    import timestamp
 import csv
 from   pathlib import Path
 
 
-# constants
-SETTINGS_HEADER = [
-  'if_bandwidth_Hz',
-  'power_dBm',
-  'points',
-]
-
+# measure and save
 
 def measure_and_save(vna, sweep_count, set_file=None, timeout_ms=None, data_path='.'):
+
     # get timestamp
     now = timestamp()
 
 
-    # resolve set file
+    # apply set file?
     if set_file is not None:
         # open and select
         vna.open_set(set_file)
         vna.active_set = set_file
+
+
+    # use active set?
     else:
         # use current
         set_file = vna.active_set
@@ -37,10 +36,10 @@ def measure_and_save(vna, sweep_count, set_file=None, timeout_ms=None, data_path
 
     # open scpi log
     log_file = save_path / 'vna.log'
-    vna.open_log(log_file)
+    vna.open_log(str(log_file))
 
 
-    # log and clear existing errors
+    # log previous errors
     vna.errors
     vna.clear_status()
 
@@ -61,7 +60,6 @@ def measure_and_save(vna, sweep_count, set_file=None, timeout_ms=None, data_path
     vna.manual_sweep = True
     vna.sweep_count  = sweep_count
     total_time_s     = default_time_s(vna.sweep)
-    time_per_sweep_s = total_time_s / sweep_count
 
 
     # restore timeout?
@@ -73,88 +71,11 @@ def measure_and_save(vna, sweep_count, set_file=None, timeout_ms=None, data_path
     vna.errors
 
 
-    # save timing info
-    timing_info_file = save_path / 'timing_info.csv'
-    with timing_info_file.open('w') as f:
-        csvwriter = csv.writer(f)
-        csvwriter.writerow(['sweep_count', 'total_time_s', 'time_per_sweep_s'])
-        csvwriter.writerow([sweep_count,   total_time_s,   time_per_sweep_s])
-
-
-    # save settings for single channel?
-    is_single_channel = len(vna.channels) == 1
-    if is_single_channel:
-        index = vna.channels[0]
-        ch = vna.channel(index)
-
-        # write settings
-        settings_file = save_path / 'settings.csv'
-        with settings_file.open('w') as f:
-            csvwriter = csv.writer(f)
-            csvwriter.writerow(SETTINGS_HEADER)
-            csvwriter.writerow([
-                ch.if_bandwidth_Hz,
-                ch.power_dBm,
-                ch.points,
-            ])
-
-
-    # save settings for multiple channels?
-    else:
-        for index in vna.channels:
-            ch = vna.channel(index)
-
-            # write settings
-            settings_file = f'{ch.name}_settings.csv'
-            with settings_file.open('w') as f:
-                csvwriter = csv.writer(f)
-                csvwriter.writerow(SETTINGS_HEADER)
-                csvwriter.writerow([
-                    ch.if_bandwidth_Hz,
-                    ch.power_dBm,
-                    ch.points,
-                ])
-
-
-    # save frequency for single channel?
-    if is_single_channel:
-        index = vna.channels[0]
-        ch    = vna.channel(index)
-
-        # save
-        freq_file = save_path / 'frequencies_Hz.csv'
-        with freq_file.open('w') as f:
-            csvwriter = csv.writer(f)
-            csvwriter.writerow(ch.frequencies_Hz)
-
-
-    # save frequency for multiple channels?
-    else:
-        for index in vna.channels:
-            ch = vna.channel(index)
-
-            # save
-            freq_file = save_path / f'{ch.name}_frequencies_Hz.csv'
-            with freq_file.open('w') as f:
-                csvwriter = csv.writer(f)
-                csvwriter.writerow(ch.frequencies_Hz)
-
-
-    # save trace history
-    for name in vna.traces:
-        trace = vna.trace(name)
-        index = trace.channel
-        ch    = vna.channel(index)
-
-        # get filename
-        filename   = f'{trace.name}.csv' if is_single_channel else f'{ch.name}_{trace.name}'
-        trace_file = save_path / filename
-
-        # save
-        trace.save_complex_history_locally(str(trace_file))
-
-        # log errors
-        vna.errors
+    # save data
+    save_timing_info(save_path, total_time_s, sweep_count)
+    save_settings(save_path, vna)
+    save_frequency(save_path, vna)
+    save_traces(save_path, vna)
 
 
     # restore display
