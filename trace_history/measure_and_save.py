@@ -82,5 +82,9 @@ def measure_and_save(vna, sweep_count, set_file=None, timeout_ms=None, data_path
     vna.settings.display = display
 
 
+    # close log
+    vna.close_log()
+
+
     # return total measurement time
     return total_time_s
